@@ -210,7 +210,7 @@ void read_oper_from_nvs(nvs_handle_t handle, operation_action *record)
 }
 
 // 读取NVS_Record
-void read_mode_oper_from_nvs(nvs_handle_t handle, operation_action *record, uint8_t mode_num)
+void read_mode_oper_from_nvs(nvs_handle_t handle, operation_action *record, uint8_t mode_num)// @NOTE 
 {
     if (record != NULL)
     {
@@ -247,7 +247,7 @@ esp_err_t write_mode_num_to_nvs(int8_t curr_mode)
 }
 
 
-esp_err_t read_working_mode_num_from_nvs(int8_t *curr_mode)
+esp_err_t read_working_mode_num_from_nvs(int8_t *curr_mode)// @NOTE 
 {
     nvs_handle_t handle;
     esp_err_t err = nvs_open(OPER_STORAGE_NAMESPACE, NVS_READWRITE, &handle);
@@ -337,7 +337,7 @@ void read_all_operations()
     nvs_close(handle);
 }
 
-void read_mode_from_nvs(int mode_num, operation_action op_act_mat[])
+void read_mode_from_nvs(int mode_num, operation_action op_act_mat[])// @NOTE 
 {
     nvs_handle_t handle;
     esp_err_t err = nvs_open(OPER_STORAGE_NAMESPACE, NVS_READWRITE, &handle);

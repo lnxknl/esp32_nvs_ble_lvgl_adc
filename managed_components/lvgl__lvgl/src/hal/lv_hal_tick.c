@@ -46,7 +46,7 @@
  * You have to call this function periodically
  * @param tick_period the call period of this function in milliseconds
  */
-void LV_ATTRIBUTE_TICK_INC lv_tick_inc(uint32_t tick_period)
+void LV_ATTRIBUTE_TICK_INC lv_tick_inc(uint32_t tick_period)// @NOTE
 {
     tick_irq_flag = 0;
     sys_time += tick_period;
@@ -57,7 +57,7 @@ void LV_ATTRIBUTE_TICK_INC lv_tick_inc(uint32_t tick_period)
  * Get the elapsed milliseconds since start up
  * @return the elapsed milliseconds
  */
-uint32_t lv_tick_get(void)
+uint32_t lv_tick_get(void)// @NOTE
 {
 #if LV_TICK_CUSTOM == 0
 

@@ -89,7 +89,7 @@ enum
 #define OPER_KEY_ESP_RESTART     0XFFFF
 
 #define OPER_STORAGE_NAMESPACE "operations"
-#define CURRENT_MODE_KEY "curr_mode"
+#define CURRENT_MODE_KEY "curr_mode"// @NOTE 
 #define MAX_OPER_NUM 16
 
 typedef struct

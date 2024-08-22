@@ -157,7 +157,7 @@ static esp_ble_adv_params_t hidd_adv_params = {
     .adv_filter_policy = ADV_FILTER_ALLOW_SCAN_ANY_CON_ANY,
 };
 
-static void hidd_event_callback(esp_hidd_cb_event_t event, esp_hidd_cb_param_t *param)
+static void hidd_event_callback(esp_hidd_cb_event_t event, esp_hidd_cb_param_t *param)// @NOTE 
 {
     switch (event)
     {
@@ -215,7 +215,7 @@ static void hidd_event_callback(esp_hidd_cb_event_t event, esp_hidd_cb_param_t *
     return;
 }
 
-static void gap_event_handler(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param)
+static void gap_event_handler(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param_t *param)// @NOTE 
 {
     switch (event)
     {
@@ -261,7 +261,7 @@ static void gap_event_handler(esp_gap_ble_cb_event_t event, esp_ble_gap_cb_param
     }
 }
 
-int read_ges_from_paj7620()
+int read_ges_from_paj7620()// @NOTE 
 {
     uint8_t data = 0, error;
     uint16_t ges_key = 0;
@@ -422,7 +422,7 @@ void suspend_imu_and_ges_detector()
     }
 }
 
-int is_valid_operation(oper_message op_msg)
+int is_valid_operation(oper_message op_msg)// @NOTE 
 {
     int valid_op = 0;
     switch (op_msg.oper_key)
@@ -626,7 +626,7 @@ uint32_t adc1_get_volt(int channel, esp_adc_cal_characteristics_t *adc_chars)
 
 /// @brief Task for checking power voltage ADC
 /// @param pvParameters
-void power_measure_task(void *pvParameters)
+void power_measure_task(void *pvParameters)// @NOTE 
 {
     int average; 
     uint32_t  voltage = 0, min, max;
@@ -859,7 +859,7 @@ void go_to_deep_sleep()
     esp_deep_sleep_start();
 }
 
-void hid_main_task(void *pvParameters)
+void hid_main_task(void *pvParameters)// @NOTE 
 {
     Delay(100);
 
@@ -965,7 +965,7 @@ void hid_main_task(void *pvParameters)
 /*Flush the content of the internal buffer the specific area on the display
  *You can use DMA or any hardware acceleration to do this operation in the background but
  *'lv_disp_flush_ready()' has to be called when finished.*/
-static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p)
+static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p)// @NOTE 
 {
     //ESP_LOGI(HID_DEMO_TAG, "***Display flush is called.***");
     ESP_LOGI(HID_DEMO_TAG, "Area: (%d, %d), (%d, %d)", area->x1, area->y1, area->x2, area->y2);
@@ -988,7 +988,7 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
     lv_disp_flush_ready(disp_drv);
 }
 
-void IRAM_ATTR timer_group0_isr(void *para) {
+void IRAM_ATTR timer_group0_isr(void *para) {// @NOTE 
     int timer_idx = (int) para;
     TIMERG0.int_clr_timers.t0 = 1;
     //timer_test_cnt++;
@@ -1078,7 +1078,7 @@ void lv_disp_init()
     disp_drv.ver_res = EPD_VER_RES;
 
     /*Used to copy the buffer's content to the display*/
-    disp_drv.flush_cb = disp_flush;
+    disp_drv.flush_cb = disp_flush;// @NOTE 
 
     /*Set a display buffer*/
     disp_drv.draw_buf = &draw_buf_dsc_3;
@@ -1128,7 +1128,7 @@ void restart_msg_callback()
     restart_required = 1;
 }
 
-void app_main(void)
+void app_main(void)// @NOTE 
 {
     esp_err_t ret;
 
@@ -1138,7 +1138,7 @@ void app_main(void)
     ESP_LOGI(HID_DEMO_TAG, "*** Battery voltage on start up: %d mV.***", average_voltage);
 
     //If the voltage of batteray is lower that the lowest volt, make the systerm go to deep sleep.
-    if(average_voltage < POWER_ON_VOLTAGE_MV) 
+    if(average_voltage < POWER_ON_VOLTAGE_MV) // @NOTE 
     {
         ESP_LOGE(HID_DEMO_TAG, "*** Cannot start up as low battery. ***");
         go_to_deep_sleep();
@@ -1158,7 +1158,7 @@ void app_main(void)
     ESP_ERROR_CHECK(ret);
 
     // Check the current mode of the device.
-    if(ESP_OK != read_working_mode_num_from_nvs(&curr_mode)) //if failed to get the current mode write the defualt operations to nvs
+    if(ESP_OK != read_working_mode_num_from_nvs(&curr_mode)) //if failed to get the current mode write the defualt operations to nvs// @NOTE 
     {
         curr_mode = 0;
         write_mode_num_to_nvs(curr_mode);
@@ -1193,7 +1193,7 @@ void app_main(void)
     ESP_ERROR_CHECK(esp_bt_controller_mem_release(ESP_BT_MODE_CLASSIC_BT));
 
     esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
-    ret = esp_bt_controller_init(&bt_cfg);
+    ret = esp_bt_controller_init(&bt_cfg);// @NOTE 
     if (ret)
     {
         ESP_LOGE(HID_DEMO_TAG, "%s initialize controller failed\n", __func__);
@@ -1289,7 +1289,7 @@ void app_main(void)
     //xTaskCreate(&multi_fun_switch_task, "multi_fun_switch", 2048, NULL, 1, NULL);
 
     ESP_LOGI(HID_DEMO_TAG, "imu_gyro_check task initialised.");
-    xTaskCreate(&imu_gyro_task, "imu_gyro_check", 2048, NULL, 1, NULL);
+    xTaskCreate(&imu_gyro_task, "imu_gyro_check", 2048, NULL, 1, NULL);// @NOTE 
 
     ESP_LOGI(HID_DEMO_TAG, "track_ball_task task initialised.");
     xTaskCreate(&track_ball_task, "track_ball_task", 2048, NULL, 1, NULL);
